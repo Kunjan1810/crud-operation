@@ -62,8 +62,6 @@ class BookAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk=None):
-        if not pk:
-            return Response({'error': 'Book ID required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             book = Book.objects.get(pk=pk)
             data = request.data
@@ -82,11 +80,10 @@ class BookAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk=None):
-        if not pk:
-            return Response({'error': 'Book ID required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             book = Book.objects.get(pk=pk)
             book.delete()
             return Response({'message': 'Book deleted'}, status=status.HTTP_204_NO_CONTENT)
         except Book.DoesNotExist:
             return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
+
