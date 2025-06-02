@@ -6,9 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import status
 from .models import Book
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 class BookAPIView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [JWTAuthentication]  # Use JWT
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk=None):
